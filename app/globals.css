@@ -1,0 +1,336 @@
+@import "tailwindcss";
+
+:root{
+  --bg: #f5f3ef;
+  --navy: #182f5c;
+  --text: #182f5c;
+  --muted: rgba(24,47,92,.72);
+
+  --card: #f5f3ef;
+  --stroke: rgba(28,28,28,.12);
+  --shadow: 0 10px 30px rgba(0,0,0,.08);
+  --radius: 18px;
+
+  --gold: #dfd194;
+}
+
+html, body { height: 100%; }
+
+body{
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-serif, Georgia, serif;
+}
+
+a{ color: inherit; text-decoration: none; }
+
+.container{
+  width: min(1120px, calc(100% - 36px));
+  margin: 0 auto;
+}
+
+.card{
+  background: var(--card);
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.card:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,0,0,.08);
+}
+
+.pill{
+  border: 1px solid var(--stroke);
+  border-radius: 999px;
+  padding: 10px 14px;
+  background: var(--navy);
+  color: var(--gold);
+  box-shadow: 0 2px 10px rgba(0,0,0,.04);
+}
+
+/* Brand subtitle should be muted navy (not gray) */
+.brandSub{
+  font-size: 19px;
+  color: var(--muted);
+  line-height: 1.35;
+  max-width: 400px;
+}
+
+/* OPTION A ONLY: make ALL .btn navy + gold (no border changes) */
+.btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--stroke);
+
+  background: var(--navy);
+  color: var(--gold);
+
+  box-shadow: 0 8px 18px rgba(0,0,0,.06);
+  transition: transform .12s ease, box-shadow .12s ease;
+  cursor: pointer;
+  font-size: 18px;
+}
+.btn:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 12px 22px rgba(0,0,0,.08);
+}
+
+/* keep these as-is (no other changes) */
+.btnPrimary{
+  background: var(--navy);
+  color: var(--gold);
+  border-color: rgba(255,255,255,.12);
+}
+.btnPrimary:hover{
+  background: #14264a;
+}
+
+.h1{
+  font-size: clamp(34px, 4vw, 54px);
+  line-height: 1.02;
+  letter-spacing: -0.4px;
+  margin: 0;
+}
+.h2{
+  font-size: clamp(22px, 2.4vw, 30px);
+  margin: 0;
+}
+.lead{
+  font-size: 20px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.grid4{
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+@media (max-width: 980px){
+  .grid4{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 520px){
+  .grid4{ grid-template-columns: 1fr; }
+}
+
+.footerWrap{
+  position: relative;
+}
+
+.footerTop{
+  padding: 28px;
+}
+
+.footerNavy{
+  position: relative;
+  padding: 44px 28px 34px;
+}
+
+.footerNavyGrid{
+  display: grid;
+  grid-template-columns: 180px 1fr 1fr 360px;
+  gap: 28px;
+  align-items: start;
+}
+
+.footerForm{
+  align-self: start;
+}
+
+.footerLogoBox{
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.18);
+  display: grid;
+  place-items: center;
+  color: rgba(255,255,255,.85);
+  font-size: 16px;
+}
+
+.footerTitle{
+  color: rgba(245,243,239,.92);
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.footerList{
+  margin: 0;
+  padding-left: 18px;
+  color: rgba(245,243,239,.82);
+  line-height: 1.5;
+  font-size: 15px;
+}
+
+.footerLink{
+  color: rgba(245,243,239,.82);
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+/* Default = mobile/tablet */
+.footerCopyright{
+  color: var(--muted);
+}
+
+/* Desktop only */
+@media (min-width: 901px){
+  .footerCopyright{
+    color: var(--gold);
+  }
+}
+/* Responsive */
+@media (max-width: 1100px){
+  .footerNavyGrid{
+    grid-template-columns: 1fr 1fr;
+  }
+  .footerForm{
+    grid-column: 1 / -1;
+  }
+}
+
+input::placeholder{
+  color: rgba(255,255,255,.65);
+}
+
+.footerBg{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 10px;             /* moves diagonal down so it feels like your Kit footer */
+  height: 425px;          /* size of the navy area */
+  background: var(--navy);
+  clip-path: polygon(0 60%, 100% 15%, 100% 100%, 0% 100%);
+  z-index: 0;
+}
+
+@media (max-width: 900px){
+  .footerBg{
+    top: 140px;
+    height: 360px;
+    clip-path: polygon(0 42%, 100% 20%, 100% 100%, 0% 100%);
+  }
+}
+
+@media (max-width: 900px){
+  .footerSplitGrid{
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ===== HEADER NAV (clean, single source of truth) ===== */
+
+.navDesktop{ display: block; }
+.navMobile{ display: none; }
+
+.navDivider{
+  width: 1px;
+  height: 22px;
+  background: var(--gold);
+  opacity: .85;
+  margin: 0 6px;
+}
+
+.navIconBtn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.06);
+  color: var(--gold);
+  cursor: pointer;
+}
+
+@media (max-width: 900px){
+  .navDesktop{ display: none; }
+  .navMobile{ display: block; }
+
+  /* Tall vertical capsule: hamburger on top, icons underneath */
+  .navMobileBar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+
+    padding: 16px 18px;
+    width: 75px;        /* tweak 110–140 if you want */
+    border-radius: 28px; /* capsule, not circle */
+  }
+
+  /* stack the icon buttons vertically under the hamburger */
+  .navMobileBar > div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* divider not needed on mobile */
+  .navMobileBar .navDivider{ display: none; }
+
+  /* dropdown panel */
+  .navMobilePanel{
+    margin-top: 10px;
+    background: var(--navy);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 18px;
+    padding: 10px;
+    display: grid;
+    gap: 6px;
+    box-shadow: 0 12px 30px rgba(0,0,0,.12);
+  }
+
+  .navMobileLink{
+    display: block;
+    padding: 12px 12px;
+    border-radius: 14px;
+    color: var(--gold);
+    font-size: 18px;
+    line-height: 1;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.10);
+  }
+}
+/* ===== GLOBAL NAVY DIAGONAL BACKGROUND (matches Home footer) ===== */
+/* Uses the SAME polygon params you already locked in footerBg. */
+
+body{
+  position: relative; /* safe: does not change layout */
+}
+
+/* Desktop diagonal */
+body::after{
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 425px;               /* same as .footerBg height */
+  background: var(--navy);
+  clip-path: polygon(0 60%, 100% 15%, 100% 100%, 0% 100%); /* DO NOT CHANGE */
+
+  z-index: -1;                 /* stays behind everything */
+  pointer-events: none;        /* cannot block clicks */
+}
+
+/* Mobile diagonal (matches your footerBg mobile polygon) */
+@media (max-width: 900px){
+  body::after{
+    height: 360px;             /* same as .footerBg mobile height */
+    clip-path: polygon(0 42%, 100% 20%, 100% 100%, 0% 100%); /* DO NOT CHANGE */
+  }
+}
