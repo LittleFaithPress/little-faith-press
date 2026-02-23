@@ -23,6 +23,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body style={{ fontFamily: eb.style.fontFamily }}>
+        {/* ✅ Silent visitor heartbeat */}
+        <TrafficPing />
         {/* GLOBAL SITE WRAPPER */}
         <div className="lfpSite">
           <Header />
@@ -32,10 +34,6 @@ export default function RootLayout({
             {children}
           </main>
         </div>
-
-        {/* ✅ Silent visitor heartbeat */}
-        <TrafficPing />
-
         {/* ✅ Vercel Analytics */}
         <Analytics />
       </body>

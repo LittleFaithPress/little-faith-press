@@ -4,14 +4,10 @@ import { useEffect } from "react";
 
 export default function TrafficPing() {
   useEffect(() => {
-    const ping = () => {
-      fetch("/api/traffic/hit", { method: "POST" }).catch(() => {});
-    };
-
-    ping();
-    const t = setInterval(ping, 5000);
-
-    return () => clearInterval(t);
+    fetch("/api/traffic/hit", {
+      method: "POST",
+      cache: "no-store",
+    }).catch(() => {});
   }, []);
 
   return null;
