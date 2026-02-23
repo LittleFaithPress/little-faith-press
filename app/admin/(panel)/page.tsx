@@ -1,4 +1,4 @@
-import {
+import AdminTrafficLive from "@/components/AdminTrafficLive";import {
   TrafficSubscriberPills,
   StoreSnapshotPills,
   SocialSnapshotPills,
@@ -146,7 +146,7 @@ export default function AdminPage() {
           </div>
         </Link>
       </div>
-
+<AdminTrafficLive />
       {/* ✅ Dashboard Widgets (now pulls real stats) */}
       <div className="card" style={{ padding: 22 }}>
         <h2 className="h2">Dashboard Widgets</h2>

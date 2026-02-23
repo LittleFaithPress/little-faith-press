@@ -4,6 +4,9 @@ import { EB_Garamond } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 
+/* ✅ NEW: traffic tracker */
+import TrafficTracker from "@/components/TrafficTracker";
+
 const eb = EB_Garamond({
   subsets: ["latin"],
   display: "swap",
@@ -20,6 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body style={{ fontFamily: eb.style.fontFamily }}>
+        {/* ✅ GLOBAL TRAFFIC TRACKER (silent background ping) */}
+        <TrafficTracker />
+
         {/* GLOBAL SITE WRAPPER */}
         <div className="lfpSite">
           <Header />
@@ -29,6 +35,8 @@ export default function RootLayout({
             {children}
           </main>
         </div>
+
+        {/* Vercel Analytics */}
         <Analytics />
       </body>
     </html>
