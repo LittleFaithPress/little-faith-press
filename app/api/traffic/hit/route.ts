@@ -61,6 +61,9 @@ export async function POST(req: Request) {
 
   const res = NextResponse.json({ ok: true }, { status: 200 });
 
+  // ✅ fingerprint header (to confirm prod is running THIS POST handler)
+  res.headers.set("x-lfp-hit", "post-handler-v1");
+
   // set cookie if it wasn’t already present
   if (!match) {
     const isProd = process.env.NODE_ENV === "production";
@@ -74,6 +77,7 @@ export async function POST(req: Request) {
     });
   }
 
+  // avoid caching
   res.headers.set("Cache-Control", "no-store");
   return res;
 }
