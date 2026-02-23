@@ -1,3 +1,4 @@
+// Track traffic visitors
 import { NextResponse } from "next/server";
 
 export const runtime = "edge";
