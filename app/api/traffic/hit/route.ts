@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
 
-const ONLINE_KEY = "lfp:online"; // sorted set
+const ONLINE_KEY = "lfp:online"; // sorted set (online visitors)
 const PV_PREFIX = "lfp:pv:"; // string counter per day
 const UV_PREFIX = "lfp:uv:"; // hyperloglog per day
 
@@ -46,16 +46,11 @@ export async function POST(req: Request) {
   let vid = match?.[1];
 
   if (!vid) {
-    // Edge runtime supports crypto.randomUUID()
     vid = crypto.randomUUID();
   }
 
   const cutoff = now - 60_000; // 60 seconds "online" window
 
-  // Track:
-  // - online visitors in a ZSET scored by last-seen timestamp
-  // - today pageviews counter
-  // - today unique visitors via HyperLogLog
   await redisPipeline([
     ["ZADD", ONLINE_KEY, now, vid],
     ["ZREMRANGEBYSCORE", ONLINE_KEY, 0, cutoff],
@@ -67,16 +62,17 @@ export async function POST(req: Request) {
 
   // set cookie if it wasn’t already present
   if (!match) {
+    const isProd = process.env.NODE_ENV === "production";
+
     res.cookies.set("lfp_vid", vid, {
       httpOnly: true,
       sameSite: "lax",
-      secure: true,
+      secure: isProd, // ✅ don’t break localhost
       path: "/",
-      maxAge: 60 * 60 * 24 * 365, // 1 year
+      maxAge: 60 * 60 * 24 * 365,
     });
   }
 
-  // avoid any caching
   res.headers.set("Cache-Control", "no-store");
   return res;
 }
