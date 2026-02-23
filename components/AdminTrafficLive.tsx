@@ -17,27 +17,40 @@ export default function AdminTrafficLive() {
   async function load() {
     try {
       setErr(null);
+
       const res = await fetch("/api/admin/traffic", { cache: "no-store" });
+
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(text || `HTTP ${res.status}`);
+      }
+
       const json = (await res.json()) as Stats;
-      setStats(json);
+      setStats(json ?? null);
     } catch (e: any) {
-      setErr("Could not load traffic stats.");
+      setErr(e?.message ? `Traffic API error: ${e.message}` : "Could not load traffic stats.");
     }
   }
 
   useEffect(() => {
-    load();
+    load(); // ✅ fetch immediately on mount
     const t = setInterval(load, 5000); // refresh every 5s
     return () => clearInterval(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="card" style={{ padding: 18, display: "grid", gap: 12 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "baseline" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: 12,
+          alignItems: "baseline",
+        }}
+      >
         <div style={{ fontSize: 18, fontWeight: 700 }}>Live Traffic</div>
-        <div style={{ fontSize: 14, color: "var(--muted)" }}>
-          refreshes every 5s
-        </div>
+        <div style={{ fontSize: 14, color: "var(--muted)" }}>refreshes every 5s</div>
       </div>
 
       {err ? (
