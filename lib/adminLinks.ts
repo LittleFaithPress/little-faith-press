@@ -55,4 +55,11 @@ export const adminLinkGroups: AdminLinkGroup[] = [
       { label: "Etsy Shop Manager", href: "https://www.etsy.com/your/shops/me/dashboard?ref=seller-platform-mcnav", icon: "store" },
     ],
   },
+  {
+    title: "Website Deployment",
+    links: [
+      { label: "Github", href: "https://github.com/LittleFaithPress/little-faith-press", icon: "globe" },
+      { label: "Vercel", href: "https://vercel.com/littlefaithpress-projects/little-faith-press", icon: "globe" },
+    ],
+  },
 ];
