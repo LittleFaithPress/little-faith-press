@@ -62,4 +62,11 @@ export const adminLinkGroups: AdminLinkGroup[] = [
       { label: "Vercel", href: "https://vercel.com/littlefaithpress-projects/little-faith-press", icon: "globe" },
     ],
   },
+  {
+    title: "AI",
+    links: [
+      { label: "ChatGPT", href: "https://chatgpt.com/", icon: "globe" },
+      { label: "Sora2", href: "https://picir.ai/m/sora-2", icon: "globe" },
+    ],
+  },
 ];
