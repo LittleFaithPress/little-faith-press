@@ -54,7 +54,7 @@ export const books: Book[] = [
     buyLinks: {
       amazon: "https://www.amazon.com/dp/B0GJ6RNWVN",
       kindle: "",
-      etsy: "",
+      etsy: "https://www.etsy.com/listing/4463225529/creation-bible-coloring-activity-book",
     },
     featured: true,
   },
@@ -115,7 +115,7 @@ export const books: Book[] = [
     buyLinks: {
       amazon: "https://www.amazon.com/dp/B0GJFGQL94",
       kindle: "",
-      etsy: "",
+      etsy: "https://www.etsy.com/listing/4463242877/david-and-goliath-coloring-activity-book",
     },
     featured: true,
   },
@@ -135,7 +135,7 @@ export const books: Book[] = [
     buyLinks: {
       amazon: "https://www.amazon.com/dp/B0GJT3K1HJ",
       kindle: "",
-      etsy: "",
+      etsy: "https://www.etsy.com/listing/4463237654/daniel-lions-den-coloring-activity-book",
     },
   },
   {
@@ -154,7 +154,7 @@ export const books: Book[] = [
     buyLinks: {
       amazon: "https://www.amazon.com/dp/B0GJSWF5WS",
       kindle: "",
-      etsy: "",
+      etsy: "https://www.etsy.com/listing/4463194780/jonah-and-the-fish-coloring-activity",
     },
   },
   {
