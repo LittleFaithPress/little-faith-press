@@ -39,6 +39,26 @@ export type Book = {
 
 export const books: Book[] = [
   {
+    id: "bundle",
+    series: "Little Bible Stories",
+    title: "Little Bible Stories Bundle",
+    tagline: "Introduce young children to some of the most loved Bible stories through one complete, faith-filled learning bundle designed especially for ages 3–6.",
+    age: "Ages 3–6",
+    image: "/books/placeholder.jpg",
+    gallery: [
+      "/books/placeholder.jpg",
+      "/books/placeholder.jpg",
+      "/books/placeholder.jpg",
+      "/books/placeholder.jpg",
+    ],
+    buyLinks: {
+      amazon: "https://www.amazon.com/dp/B0GJ6RNWVN",
+      kindle: "",
+      etsy: "https://www.etsy.com/listing/4463225529/creation-bible-coloring-activity-book",
+    },
+    featured: true,
+  },
+  {
     id: "creation",
     series: "Little Bible Stories",
     title: "Little Bible Stories: Creation",
