@@ -5,21 +5,44 @@ import { useEffect, useState } from "react";
 export default function NewsletterForm() {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "ok">("idle");
+  const [website, setWebsite] = useState(""); // honeypot
+  const [status, setStatus] = useState<"idle" | "loading" | "ok" | "error">("idle");
+  const [msg, setMsg] = useState("");
 
   const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
+  useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
-  function onSubmit(e: React.FormEvent) {
+  async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setStatus("loading");
+    setMsg("");
+
+    const res = await fetch("/api/subscribe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ firstName, email, website }),
+    });
+
+    const data = await res.json().catch(() => ({}));
+
+    if (!res.ok || !data.ok) {
+      setStatus("error");
+      setMsg(data?.message || "Something went wrong. Try again.");
+      return;
+    }
+
     setStatus("ok");
+
+    // ✅ Your updated success message
+    setMsg(
+      data?.message ||
+        "You're in! 🎉\n\nYour free printable is on its way to your inbox.\nPlease check your Promotions or Spam folder just in case."
+    );
+
     setFirstName("");
     setEmail("");
+    setWebsite("");
   }
 
   return (
@@ -29,7 +52,6 @@ export default function NewsletterForm() {
           First name (optional)
         </label>
         <input
-          suppressHydrationWarning
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
           type="text"
@@ -39,11 +61,8 @@ export default function NewsletterForm() {
       </div>
 
       <div style={{ display: "grid", gap: 8 }}>
-        <label style={{ fontSize: 16, color: "var(--gold)" }}>
-          Email
-        </label>
+        <label style={{ fontSize: 16, color: "var(--gold)" }}>Email</label>
         <input
-          suppressHydrationWarning
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           type="email"
@@ -53,16 +72,51 @@ export default function NewsletterForm() {
         />
       </div>
 
-      <button type="submit" style={buttonStyle}>
-        Get Free Activities & Updates
+      {/* Honeypot hidden field */}
+      <div
+        style={{
+          position: "absolute",
+          left: -10000,
+          width: 1,
+          height: 1,
+          overflow: "hidden",
+        }}
+      >
+        <label>Website</label>
+        <input value={website} onChange={(e) => setWebsite(e.target.value)} />
+      </div>
+
+      <button
+        type="submit"
+        style={buttonStyle}
+        disabled={status === "loading"}
+      >
+        {status === "loading"
+          ? "Submitting..."
+          : "Get Free Activities & Updates"}
       </button>
 
       {status === "ok" ? (
-        <div style={{ color: "var(--gold)", fontSize: 14 }}>
-          You’re in. Welcome 🎉
+        <div
+          style={{
+            color: "var(--gold)",
+            fontSize: 14,
+            lineHeight: 1.5,
+            whiteSpace: "pre-line", // ✅ keeps your line breaks
+          }}
+        >
+          {msg}
         </div>
+      ) : status === "error" ? (
+        <div style={{ color: "var(--gold)", fontSize: 14 }}>{msg}</div>
       ) : (
-        <div style={{ color: "var(--gold)", fontSize: 14, lineHeight: 1.4 }}>
+        <div
+          style={{
+            color: "var(--gold)",
+            fontSize: 14,
+            lineHeight: 1.4,
+          }}
+        >
           Get freebies, new releases, and calm screen-free activity ideas.
         </div>
       )}
